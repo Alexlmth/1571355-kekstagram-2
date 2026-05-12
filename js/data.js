@@ -1,6 +1,8 @@
-export const guantityPictures = 25;
+import {getRandomArrayItem, getRandomInteger} from './util.js';
 
-export const comment = [
+const guantityPictures = 25;
+
+const comments = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -9,7 +11,7 @@ export const comment = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-export const descriptions = [
+const descriptions = [
   'Отель Eden и пляж Mulini в Ровине, Хорватия',
   'Деревянный указатель к пляжу',
   'Вид на остров Тачай, расположенный в Таиланде',
@@ -37,7 +39,7 @@ export const descriptions = [
   'Внедорожник Land Rover Defender',
 ];
 
-export const names = [
+const names = [
   'Николай',
   'Дмитрий',
   'Василий',
@@ -45,3 +47,50 @@ export const names = [
   'Алексей',
   'София',
 ];
+
+const messageRange = {
+  MIN: 1,
+  MAX: 2,
+};
+
+const avatarRange = {
+  MIN: 1,
+  MAX: 6,
+};
+
+const commentRange = {
+  MIN: 0,
+  MAX: 6,
+};
+
+const createMessage = (commentList) => {
+  const messageCount = getRandomInteger(messageRange.MIN, messageRange.MAX);
+  return Array.from({ length: messageCount },() => getRandomArrayItem(commentList)).join('');
+};
+
+const createComment = (index) => ({
+  id: index,
+  avatar: `img/avatar-${getRandomInteger(avatarRange.MIN, avatarRange.MAX)}.svg`,
+  message: createMessage(comments),
+  name: getRandomArrayItem(names),
+});
+
+const createComments = () => {
+  const CommentCount = getRandomInteger(commentRange.MIN, commentRange.MAX);
+  return Array.from({ length: CommentCount },(_, index) => createComment(index + 1));
+};
+
+const createPictureItem = (index) => ({
+  id: index,
+  url: `photos/${index}.jpg`,
+  description: descriptions[index - 1],
+  likes: getRandomInteger(15, 200),
+  comments: createComments(),
+});
+
+const createArrayPictures = () =>
+  Array.from({ length: guantityPictures }, (_, pictureIndex) =>
+    createPictureItem(pictureIndex + 1)
+  );
+
+export {guantityPictures, comments, descriptions, names, createComments, createArrayPictures};

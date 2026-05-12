@@ -1,5 +1,7 @@
-import {createArrayPictures} from './picture.js';
+import {createArrayPictures} from './data.js';
 
-createArrayPictures();
+const createArrayPicture = createArrayPictures();
+
+console.log(createArrayPicture);
 
 

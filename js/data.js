@@ -1,6 +1,6 @@
 import {getRandomArrayItem, getRandomInteger} from './util.js';
 
-const guantityPictures = 25;
+const QUANTITY_PICTURES = 25;
 
 const comments = [
   'Всё отлично!',
@@ -48,35 +48,35 @@ const names = [
   'София',
 ];
 
-const messageRange = {
+const MessageRange = {
   MIN: 1,
   MAX: 2,
 };
 
-const avatarRange = {
+const AvatarRange = {
   MIN: 1,
   MAX: 6,
 };
 
-const commentRange = {
+const CommentRange = {
   MIN: 0,
-  MAX: 6,
+  MAX: 30,
 };
 
 const createMessage = (commentList) => {
-  const messageCount = getRandomInteger(messageRange.MIN, messageRange.MAX);
+  const messageCount = getRandomInteger(MessageRange.MIN, MessageRange.MAX);
   return Array.from({ length: messageCount },() => getRandomArrayItem(commentList)).join('');
 };
 
 const createComment = (index) => ({
   id: index,
-  avatar: `img/avatar-${getRandomInteger(avatarRange.MIN, avatarRange.MAX)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(AvatarRange.MIN, AvatarRange.MAX)}.svg`,
   message: createMessage(comments),
   name: getRandomArrayItem(names),
 });
 
 const createComments = () => {
-  const CommentCount = getRandomInteger(commentRange.MIN, commentRange.MAX);
+  const CommentCount = getRandomInteger(CommentRange.MIN, CommentRange.MAX);
   return Array.from({ length: CommentCount },(_, index) => createComment(index + 1));
 };
 
@@ -89,8 +89,8 @@ const createPictureItem = (index) => ({
 });
 
 const createArrayPictures = () =>
-  Array.from({ length: guantityPictures }, (_, pictureIndex) =>
+  Array.from({ length: QUANTITY_PICTURES }, (_, pictureIndex) =>
     createPictureItem(pictureIndex + 1)
   );
 
-export {guantityPictures, comments, descriptions, names, createComments, createArrayPictures};
+export {createArrayPictures};
